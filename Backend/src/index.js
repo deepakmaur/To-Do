@@ -1,34 +1,18 @@
-import express from "express"
-import cors from "cors"
-const app=express();
-const port=process.env.PORT || 5000;
-
-const corsOperation={
-    origin:"*",
-    optionsSuccessStatus: 200
-} 
-
-app.get("/",(req,res)=>{
-    res.send("server is ready")
+import { app } from "./app.js";
+import dotenv from "dotenv";
+import {connection } from "./db/index.js"
+dotenv.config(
+   { path:"./.env"}
+)
+console.log(process.env.PORT);
+connection()
+.then(()=>{
+    app.listen(process.env.PORT||8000,()=>{
+        console.log(`Server is running on Port ${process.env.PORT}`);
+        
+    })
 })
-
-app.get("/api/jokes",cors(corsOperation),(req,res)=>{
-    const jokes=[
-        {
-            id:1,
-            title:"From Backend",
-            content:"WOrked"
-        },
-        {
-            id:2,
-            title:"Done Backend",
-            content:"WOrking "
-        }
-    ]
-    res.send(jokes)
+.catch((err)=>{
+    console.log("Error in connecting :",err)
+    process.exit(1)
 })
-
-app.listen(port,()=>{
-    console.log(`Server is running at port ${port}`)
-})
-
