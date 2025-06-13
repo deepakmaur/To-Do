@@ -7,8 +7,9 @@ dotenv.config(
 console.log(process.env.PORT);
 connection()
 .then(()=>{
-    app.listen(process.env.PORT||8000,()=>{
-        console.log(`Server is running on Port ${process.env.PORT}`);
+    const PORT = process.env.PORT || 8000;
+    app.listen(PORT,()=>{
+        console.log(`Server is running on Port ${PORT}`);
         
     })
 })
@@ -17,7 +18,22 @@ connection()
     process.exit(1)
 })
 
+
+
+// app.get("/", (req, res) => {
+//     res.send("Welcome to the Todo App API");
+// });
 app.on("error", (error) => {
     console.error("App encountered an error:", error);
     process.exit(1);
 });
+
+// app.listen(process.env.PORT, async () => {
+//     try {
+//         await connection();
+//         console.log(`Server is running on Port ${process.env.PORT}`);
+//     } catch (error) {
+//         console.error("Error connecting to the database:", error);
+//         process.exit(1);
+//     }
+// });

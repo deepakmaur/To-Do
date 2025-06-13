@@ -1,1 +1,1 @@
-export const DB_NAME="Todo"
+export const DB_NAME="ToDo"
