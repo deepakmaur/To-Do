@@ -16,3 +16,8 @@ connection()
     console.log("Error in connecting :",err)
     process.exit(1)
 })
+
+app.on("error", (error) => {
+    console.error("App encountered an error:", error);
+    process.exit(1);
+});
